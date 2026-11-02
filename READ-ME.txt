@@ -1,0 +1,64 @@
+答案之后 / After the Answer — V7.5
+完整故事开发版 / Complete story development build
+
+开始 / PLAY
+1. 先把整个压缩包解压到一个固定文件夹。不要直接在压缩包里打开。
+   Extract the entire archive to a stable folder. Do not run inside the ZIP.
+2. 双击 start.html；选择语言并开始。建议使用较新的 Chrome、Edge 或 Firefox。
+   Open start.html in a recent Chrome, Edge or Firefox, then choose your language.
+3. 如果本地文件受浏览器限制，可在 macOS 双击“Start-local-server.command”。
+   它仅在你的电脑上运行一个服务，需要已有 Python 3，不会安装任何软件。
+   若 macOS 提示权限，可在终端运行：bash Start-local-server.command
+   If file access is restricted, macOS users may run Start-local-server.command.
+   It uses an existing Python 3 and installs nothing. If double-click is restricted,
+   run: bash Start-local-server.command
+   Other platforms with Python 3: open a terminal in this folder and run
+   python3 -m http.server 56607 --bind 127.0.0.1 --directory game
+   then visit http://127.0.0.1:56607/v75/start.html
+
+SCENE REHEARSAL / 场景排练
+标题页可直接排练十一段剧情操作，含事故撤离、档案溯源、当地会议及后续地点和情节。排练不改变主线存档。
+The title menu offers eleven story interactions to rehearse, including accident evacuation, archive provenance, the local council and later scenes.
+Rehearsals never change story saves; reloading the page resets the rehearsal.
+
+MINIGAMES / 独立小游戏
+标题页可进入星际打捞机和实验工坊，均不改变故事进度。
+The title screen links to Little Orbit and Workshop; story saves stay separate.
+Little Orbit: arrow keys move, Space drops, 1/2 switches claws, P pauses.
+
+CONTROLS / 操作
+点击场景标记或侧栏条目，切换维卡／诺伊视角。遇到困难可使用提示。
+Click scene markers or list items; switch Vika/Noyi viewpoints and use hints.
+键盘 Tab 选择，Enter 确认；Esc 关闭对话窗。画面动态与声音可按需调整。
+Tab selects, Enter activates, Esc closes dialogs. Motion and sound are optional.
+
+SAVES / 存档
+开场、斋浦尔、伦敦、后续故事分别保存；普通开始/继续不会重置进度。
+Opening, Jaipur, London and the continuation have separate saves. Normal play links reset none.
+标题页“旅程备份与恢复”可导出四段进度；恢复需核对预览并确认。
+Use Journey backup and restore on the title screen to transfer all four sections; review and confirm before restoring.
+备份中的空段会清除目标同段；未提交的临时实验草稿、声音偏好与小游戏不包含。
+Empty sections clear the matching destination saves. Unsubmitted puzzle drafts, audio preferences and minigames are not included.
+浏览器的网页地址、本地文件路径和浏览器配置不同，可能使用不同的存档区域。
+Local-file paths, web addresses and browser profiles may use separate storage.
+更换打开方式、设备、文件夹或浏览器前，在标题页下载旅程备份。
+Before changing launch method, device, folder or browser, download a journey backup from the title screen.
+此包不含任何玩家进度；游戏不会把存档上传到远程服务器。
+This archive contains no player saves; gameplay does not upload them to a server.
+
+LANGUAGES / 语言
+简体中文 · English · العربية · हिन्दी · 日本語
+语言可在游戏内切换；阿拉伯语使用从右到左排版。
+Languages can be switched in-game; Arabic uses right-to-left layout.
+غير اللغة من القائمة. احفظ نسخة من تقدمك قبل تغيير المتصفح أو مكان الملفات.
+मेनू से भाषा बदलें। ब्राउज़र या फ़ाइलों की जगह बदलने से पहले सेव का बैकअप लें।
+メニューで言語を切り替えられます。ブラウザーや保存場所を変える前にバックアップしてください。
+非中文文本为工作译稿，尚未经母语审校。
+Non-Chinese text is a working translation, not yet native-speaker reviewed.
+
+BUILD / 版本
+这是全篇可通关的开发版，并非签名原生应用或已完成发行审核的商业版本。
+A complete playable story build, not a signed native app or a release-certified product.
+美术、声音和互动仍在打磨；创作者与 AI 协作制作。
+Art, audio and interactions remain in development, created with AI assistance.
+SHA256SUMS.txt lists every runtime file and its SHA-256 checksum.

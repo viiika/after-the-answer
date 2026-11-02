@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-Hans" dir="ltr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>答案之后 · V7.5</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="stage.css"><link rel="stylesheet" href="audio.css"></head>
+<body>
+<header><a class="brand" href="start.html"><span class="brand-mark" aria-hidden="true">◷</span><span data-i18n="title"></span></a><div class="tools"><label for="language" data-i18n="language"></label><select id="language"><option value="zh-Hans">简体中文</option><option value="en">English</option><option value="ar">العربية</option><option value="hi">हिन्दी</option><option value="ja">日本語</option></select><a class="nav-link" href="full.html" data-i18n="fullStory"></a><a class="nav-link" href="art.html" data-i18n="artGallery"></a><button id="journal" data-i18n="journal"></button></div></header>
+<main>
+ <section class="chapter-head"><div><p class="eyebrow" data-i18n="edition"></p><h1 id="scene-title" tabindex="-1"></h1><p id="goal"></p></div><nav id="actors" aria-label="Characters"><button data-actor="vika"><img src="../prototype/assets/art-v1/executor.webp" alt=""><span data-i18n="vika"></span><span class="complete" aria-hidden="true"></span></button><button data-actor="noyi"><img src="../prototype/assets/art-v1/noys.webp" alt=""><span data-i18n="noyi"></span><span class="complete" aria-hidden="true"></span></button></nav></section>
+ <section class="stage" id="stage" aria-labelledby="scene-title"><img id="background" alt=""><div class="vignette"></div><div id="place" class="place"></div><div id="spots"></div><div class="stage-caption" data-i18n="artNote"></div></section>
+ <section class="lower"><div class="story"><p id="speaker" class="eyebrow"></p><p id="speech" role="status" aria-live="polite" aria-atomic="true"></p><div id="actions"></div></div><aside class="bag"><div class="bag-top"><h2 data-i18n="inventory"></h2><button id="hint" data-i18n="hint"></button></div><p id="bag-help" data-i18n="selectHelp"></p><div id="inventory"></div></aside></section>
+ <p class="instructions" data-i18n="introHelp"></p>
+</main>
+<footer><span id="save" role="status"></span><span data-i18n="translationNote"></span><button id="backup-raw" data-i18n="backupRaw" hidden></button><button id="restart" data-i18n="restart"></button></footer>
+<dialog id="modal" aria-labelledby="modal-title"><div class="dialog-head"><h2 id="modal-title"></h2><button id="close" data-i18n="close"></button></div><div id="modal-body"></div></dialog>
+<script src="model.js"></script><script src="locales.js"></script><script src="app.js"></script>
+<script src="stage.js"></script><script src="audio.js"></script></body></html>

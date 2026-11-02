@@ -1,0 +1,28 @@
+/* Painted four-frame atlas. Registration changes display windows, never source pixels. */
+.watch-drawing{aspect-ratio:360/768;background-repeat:no-repeat;background-size:284.444444% 200%;background-position:24.096386% 0%;flex-shrink:0}
+.watch-drawing[data-frame="1"]{background-position:84.337349% 0%}
+.watch-drawing[data-frame="2"]{background-position:24.096386% 99.21875%}
+.watch-drawing[data-frame="3"]{background-position:84.337349% 99.21875%}
+.watch-drawing[hidden]{display:none}
+.watch-visual{display:flex;align-items:center;gap:8px;direction:ltr}
+.watch-performer{width:169px;height:195px;overflow:hidden;flex-shrink:0}
+.watch-performer .watch-drawing{height:360px}
+.watch-performer img{width:169px!important;max-height:none!important;height:253px;object-fit:contain!important;object-position:top;filter:none!important}
+.watch-performer img[hidden]{display:none}
+.watch-visual .watch-loupe{width:85px;flex-shrink:0}
+.watch-bench .watch-inspection{grid-template-columns:262px minmax(0,1fr)}
+@media(max-width:650px){.watch-bench .watch-inspection{grid-template-columns:1fr}.watch-visual{justify-content:center}.watch-performer{height:170px}.watch-performer .watch-drawing{height:325px;margin-inline:auto}.watch-visual .watch-loupe{width:80px}}
+
+/* Two-character lantern handoff. Registration corrects atlas-cell drift without altering source pixels. */
+.lantern-drawing{width:min(100%,768px);aspect-ratio:3/2;background-repeat:no-repeat;background-size:190% 190%;background-position:5.9% 0;flex-shrink:0}
+.lantern-drawing[data-frame="1"]{background-position:102.1% 0}
+.lantern-drawing[data-frame="2"]{background-position:6.2% 105.556%}
+.lantern-drawing[data-frame="3"]{background-position:100.9% 105.556%}
+.lantern-drawing[hidden],.lantern-fallback[hidden]{display:none}
+.lantern-fallback{display:flex;align-items:flex-end;justify-content:center;gap:min(3vw,24px);width:min(100%,640px);height:100%;direction:ltr}
+.lantern-fallback img{width:min(40%,220px)!important;height:90%!important;object-fit:contain!important}
+.lantern-story{margin:0 0 18px;padding:12px;border:1px solid #8e8a7270;border-radius:12px;background:#10282c;overflow:hidden}
+.lantern-story .lantern-drawing{margin:auto}
+.lantern-story .lantern-fallback{height:260px;margin:auto}
+.lantern-caption{margin:8px 4px 0;color:#dbbc88;font-size:14px}
+@media(max-width:650px){.lantern-story{padding:8px}.lantern-story .lantern-fallback{height:190px}.lantern-caption{font-size:13px}}

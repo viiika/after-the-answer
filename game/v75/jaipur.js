@@ -1,0 +1,39 @@
+'use strict';
+const $=s=>document.querySelector(s),J=JaipurText;let s,notesRaw=[],speakerRaw='',speechRaw='';const targets=[8,12],samples=[],SCENE_KEY=Jaipur.KEY;let sceneBlocked=false;
+const vikaAction=ActorSprite.mount({element:$('#vika-action'),fallback:$('#vika-still'),src:'assets/vika-observe-v1.webp'});
+const noyiAction=ActorSprite.mount({element:$('#noyi-action'),fallback:$('#noyi-still'),src:'assets/noyi-inspect-v1.webp'});
+function fresh(){vikaAction.stop();noyiAction.stop();s={actor:'vika',time:0,zero:0,wedge:0,inspected:false,clear:false,finished:false,send:null};samples.length=0;$('#ending').hidden=true;$('#zero').value=0;$('#wedge').value=0;notesRaw=['旧页：木架曾歪过。原因空白。'];renderNotes();say('诺伊','“你站在这儿就没有影子了。”她蹲在细线旁，一只鞋搁在台阶上。维卡低头，才发现自己的影子挡住了刻度。');render();}
+function saveScene(){if(sceneBlocked)return;try{localStorage.setItem(SCENE_KEY,JSON.stringify({version:1,state:s,samples,notes:notesRaw,speaker:speakerRaw,speech:speechRaw}));}catch{sceneBlocked=true;$('#save-status').textContent=J.t('本地保存不可用；本场仍可继续。');}}
+function reading(){return targets[s.time]*(1+(3-s.wedge)*.05)+s.zero;}
+function valid(time){return samples.some(p=>p.time===time&&p.zero===s.zero&&p.wedge===s.wedge&&p.clear&&Math.abs(p.value-targets[time])<.051);}
+function ready(){return valid(0)&&valid(1)&&s.inspected;}
+function say(who,text){speakerRaw=who;speechRaw=text;$('#speaker').textContent=J.t(who);$('#speech').textContent=J.t(text);}
+function renderNotes(){$('#notes').replaceChildren();for(const text of notesRaw){const li=document.createElement('li');li.textContent=J.t(text);$('#notes').append(li);}}
+function note(text){notesRaw.push(text);renderNotes();$('#notes').scrollTop=$('#notes').scrollHeight;}
+function render(){for(const b of document.querySelectorAll('[data-actor]'))b.setAttribute('aria-pressed',b.dataset.actor===s.actor);for(const b of document.querySelectorAll('[data-time]'))b.setAttribute('aria-pressed',Number(b.dataset.time)===s.time);$('#vika-controls').hidden=s.actor!=='vika';$('#noyi-controls').hidden=s.actor!=='noyi';$('#zero-value').textContent=s.zero.toFixed(1);$('#wedge-value').textContent=s.wedge;$('#wedge').disabled=!s.inspected||s.finished;$('#zero').disabled=s.finished;$('#measure').disabled=s.finished;$('#expected').textContent=targets[s.time].toFixed(1);$('#reading').textContent=s.clear?reading().toFixed(1):'被遮住';$('#frame').setAttribute('transform',`rotate(${(3-s.wedge)*3} 300 230)`);$('#needle').setAttribute('transform',`translate(${80+reading()/16*440} 0)`);$('#needle').style.opacity=s.clear?1:.2;$('#shadow').disabled=s.clear||s.finished;$('#joint').disabled=s.inspected||s.finished;$('#morning').textContent=valid(0)?'✓ 上午已复核':'上午未复核';$('#afternoon').textContent=valid(1)?'✓ 下午已复核':'下午未复核';$('#delivery').hidden=!ready()||s.finished;$('#objective').textContent=s.finished?'这次任务完成了。记录里仍留着你刚才走过的弯路。':ready()?'两道刻线在同一设置下都吻合了。现在整理要送出的材料。':s.actor==='vika'?'任务：用同一套设置复核两道刻线。核验本的答案正确，但现场为什么对不上？':'任务：找出木架失准的原因，保留让下一位测量者能重做的线索。';$('#repair-help').textContent=s.inspected?'调节垫片，让横梁与铅垂线垂直；回到维卡，在同一设置下复测两道刻线。':'检查榫头后，才能松开被雨水撑紧的接缝、重新支稳木架。';renderNotes();J.apply();saveScene();}
+for(let i=0;i<=16;i++){$('#marks').insertAdjacentHTML('beforeend',`<path d="M${80+i*27.5} 240v${i%4?7:14}" stroke="#6a5135"/><text x="${80+i*27.5}" y="277" text-anchor="middle" fill="#dec89c" font-size="10">${i%4?'':i}</text>`);}
+for(const b of document.querySelectorAll('[data-actor]'))b.onclick=()=>{s.actor=b.dataset.actor;vikaAction.stop();noyiAction.stop();say(s.actor==='vika'?'维卡':'诺伊',s.actor==='vika'?'“那些粮食不能等我们争论完再出发。先弄清楚，哪一项真的能交给工程。”':'“我不是要他们用错的数字。我想让下一次修木架的人，知道从哪儿查。”');render();};
+for(const b of document.querySelectorAll('[data-time]'))b.onclick=()=>{s.time=Number(b.dataset.time);render();};
+$('#zero').oninput=e=>{s.zero=Number(e.target.value);render();};$('#wedge').oninput=e=>{s.wedge=Number(e.target.value);render();};
+$('#shadow').onclick=()=>{if(s.actor!=='noyi'){say('诺伊','“往树荫里站一点。对，就在那里。”切到诺伊，调整现场站位，让刻线露出来。');return;}s.clear=true;say('维卡','他把那只鞋放在台阶上，退到了树荫里。“现在太阳可以工作了？”');note('站位记录：人的影子曾挡住刻线；读数前先让出阳光。');render();};
+$('#joint').onclick=()=>{if(s.actor!=='noyi'){say('维卡','核验本没有写昨夜的雨。诺伊已经蹲到了支脚旁；切换她，查看木架。');return;}if(s.inspected||s.finished)return;s.inspected=true;noyiAction.play();say('阿伦','“昨晚的雨把榫头撑紧了。”诺伊看看他：“昨晚你明明说不会下雨。”先松开接缝，再用垫片找平；不要只挪刻尺掩住偏差。');note('现场原因：雨后榫头膨胀，木架倾斜；需要重新支稳，而非只改数字。');$('#repair-help').textContent='调节垫片，让横梁与铅垂线垂直；回到维卡，在同一设置下复测两道刻线。';render();};
+$('#measure').onclick=()=>{if(s.finished)return;if(!s.clear){say('阿伦','“我听见你报数字了。但刻线还在你的影子底下。”先让出阳光，再记。');return;}const value=reading();if(samples.some(p=>p.time===s.time&&p.zero===s.zero&&p.wedge===s.wedge)){say('阿伦','“这一组设置已经记过了。换另一道刻线，或者看看仪器哪里还需要调整。”');return;}vikaAction.play();window.dispatchEvent(new CustomEvent('v75:foley',{detail:{kind:'write'}}));samples.push({time:s.time,zero:s.zero,wedge:s.wedge,clear:s.clear,value});note(`${s.time?'下午':'上午'}：现场 ${value.toFixed(1)} / 核验 ${targets[s.time].toFixed(1)}；零点 ${s.zero.toFixed(1)}，垫片 ${s.wedge}。${Math.abs(value-targets[s.time])<.051?'吻合。':'不吻合，保留此页。'}`);say('阿伦',Math.abs(value-targets[s.time])<.051?'“这一道对上了。另一道呢？别换了设置再告诉我两次都对。”':'“先别擦。下一次有人犯同样的错，至少可以从这一页开始查。”');render();if(ready())say('维卡','两道读数终于吻合。“正确的数据可以送走了。旧页呢？”阿伦把手压在那本皱起的纸上。');};
+$('#oldbook').onclick=()=>say('阿伦','“父亲教我的第一句话不是星星叫什么，而是看不懂就再量一次。”旧页有些记号连他也不懂。“我不怕他算错。只是不想把别人能问出来的事，稀里糊涂带进坟墓。”维卡想起那些曾被自己归入‘没有必要保存’的记录，没有接话。');
+$('#hint').onclick=()=>say('阿伦',!s.clear?'“你的影子还挡着刻度。诺伊能帮我们安排站位。”':!s.inspected?'“如果挪刻尺能对上一个数字，却对不上另一个，先查木架。诺伊看得到那只湿榫头。”':s.wedge!==3?'“铅垂线不会跟木架一起歪。找它的垂直方向，让横梁恢复水平。”':Math.abs(s.zero)>.01?'“木架已经正了。刚才为凑读数挪过的刻尺，是不是还没有归零？”':'“保持这套设置，分别记下上午和下午。两条记录都要留下。”');
+for(const b of document.querySelectorAll('[data-send]'))b.onclick=()=>{if(!ready()||s.finished)return;s.finished=true;s.send=b.dataset.send;$('#ending').hidden=false;$('#consequence').textContent=b.dataset.send==='both'?'工程负责人收到经过复核的数据，另一座工坊同时收到失败、雨后榫头和修复过程的副本。冯岑在保留申请旁写下：“可行。”':'工程负责人收到经过复核的数据。旧本留在阿伦桌上，没有被销毁；这次寄出的材料里，仍没有解释木架为什么会歪。正确的数据解决了眼前的工程，下一座工坊还得自己找到这个原因。';$('#save-status').textContent=syncOpening(b.dataset.send);render();$('#ending').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});};
+function syncOpening(choice){if(choice!=='both')return '本场保留了不同的寄送选择；未用这一分支覆盖原旅程的保留申请。';if(new URLSearchParams(location.search).get('from')!=='opening')return '本场为第三章独立试玩；未改动原有故事存档。';try{const raw=localStorage.getItem(Opening.KEY);if(!raw)return '没有找到原旅程，本场未改动故事存档。';let state=Opening.restore(raw);if(!Opening.has(state,'jaipur'))return '原旅程尚未进入第三章，未跳过前置章节。';for(const e of ['jbaseline','jwood','jrepair','jshade','jread','jrepeat','jcopy','jreport']){if(Opening.has(state,e))continue;state.actor=['jwood','jrepair','jshade','jcopy'].includes(e)?'noyi':'vika';state=Opening.apply(state,e);}if(!Opening.has(state,'jreport'))return '原存档顺序需要核对，未写入；可返回原旅程继续。';localStorage.setItem(Opening.KEY,JSON.stringify(state));return '第三章完成进度已接回原旅程。继续第四章。';}catch{return '无法更新本地存档；本场仍已完成。原存档未主动重置。';}}
+$('#restart').onclick=()=>{if(confirm(J.t('重新尝试这一场？只清空本场读数，不重置故事存档。'))){sceneBlocked=false;fresh();}};
+$('#language').onchange=e=>{J.set(e.target.value);renderNotes();say(speakerRaw,speechRaw);render();};
+restoreScene();
+
+function restoreScene(){
+ try{
+  const raw=localStorage.getItem(SCENE_KEY);if(raw===null){fresh();return;}
+  const d=Jaipur.restore(raw);s=d.state;samples.push(...d.samples);
+  notesRaw=[...d.notes];renderNotes();
+  $('#zero').value=s.zero;$('#wedge').value=s.wedge;
+  say(typeof d.speaker==='string'?d.speaker:'阿伦',typeof d.speech==='string'?d.speech:'“旧页还在，接着量吧。”');
+  if(s.finished){$('#ending').hidden=false;$('#consequence').textContent=s.send==='both'?'工程收到复核数据，另一座工坊同时收到失败与修复过程的副本。保留申请上的批注仍是：“可行。”':'工程收到复核数据，旧本留在阿伦这里，没有被销毁。寄出的材料仍没有解释木架为什么会歪。';$('#save-status').textContent='已恢复本场完成记录，不重复改写原故事存档。';}
+  render();
+ }catch{sceneBlocked=true;fresh();say('记录提示','本场存档无法读取，旧内容未被覆盖。仍可试玩；确认“重试本场”后重新保存。');}
+}

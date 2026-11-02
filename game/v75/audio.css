@@ -1,0 +1,25 @@
+/* Scoped controls: usable with both the opening and complete-story players. */
+#v75-sound { position: relative; color: #f1e5ce; font-size: .88rem; }
+#v75-sound summary { display: inline-flex; align-items: center; gap: .4rem; cursor: pointer; padding: .56rem .75rem; border: 1px solid #b49a6b70; border-radius: 8px; background: #252832; list-style: none; white-space: nowrap; }
+#v75-sound summary::-webkit-details-marker { display: none; }
+#v75-sound summary:focus-visible, #v75-sound button:focus-visible, #v75-sound input:focus-visible { outline: 3px solid #f3d398; outline-offset: 3px; }
+#v75-sound[open] summary { background: #3b3940; }
+#v75-sound .sound-controls { position: absolute; z-index: 30; inset-inline-end: 0; top: calc(100% + .65rem); width: min(300px, calc(100vw - 36px)); box-sizing: border-box; background: #20232bef; border: 1px solid #ad956666; border-radius: 12px; padding: 1rem; box-shadow: 0 15px 55px #0009; backdrop-filter: blur(14px); text-align: start; display: grid; gap: .75rem; }
+#v75-sound button { color: #f1e5ce; background: #46424b; border: 1px solid #b49a6b; border-radius: 7px; padding: .65rem; width: 100%; cursor: pointer; font: inherit; }
+#v75-sound button[aria-pressed="true"] { border-color: #bad5bc; }
+#v75-sound .sound-check { display: flex; align-items: center; gap: .65rem; cursor: pointer; font: inherit; color: inherit; }
+#v75-sound input[type="checkbox"] { appearance: auto; width: 18px; height: 18px; accent-color: #d9bc80; margin: 0; }
+#v75-sound .sound-level { display: flex; align-items: center; gap: .7rem; }
+#v75-sound input[type="range"] { accent-color: #d9bc80; width: 100%; min-width: 0; padding: 0; margin: 0; }
+#v75-sound output { min-width: 3.3em; text-align: end; font-variant-numeric: tabular-nums; }
+#v75-sound p { margin: 0; line-height: 1.6; white-space: normal; }
+#v75-sound #sound-status { font-size: .8rem; color: #ddd0b7; }
+#v75-sound .sound-note { font-size: .72rem; color: #b8b4b0; border-top: 1px solid #ffffff1c; padding-top: .65rem; }
+#v75-sound :disabled { opacity: .55; cursor: default; }
+@media (max-width: 600px) {
+  #v75-sound { position: static; }
+  #v75-sound .sound-controls { position: absolute; inset-inline: 18px; top: auto; margin-top: .5rem; width: auto; max-width: 100%; }
+}
+
+/* New chapter headers hide their decorative spans on phones; sound labels remain readable. */
+#v75-sound span{display:inline}

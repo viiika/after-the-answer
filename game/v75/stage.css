@@ -1,0 +1,66 @@
+/* Scene direction: optional presentation, independent of narrative and save logic. */
+.stage-directed #background{animation:none;position:relative;z-index:0}
+.stage-directed .shade,.stage-directed .vignette{z-index:1}
+.stage-directed .atmosphere{display:none}
+.stage-layers{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.stage-previous{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;z-index:6;pointer-events:none}
+.stage-previous.is-dissolving{animation:scene-dissolve .7s ease-out forwards}
+.stage-light{position:absolute;inset:0;background:radial-gradient(ellipse at 62% 43%,#ffe3ab18,transparent 48%);opacity:.65;animation:scene-light 11s ease-in-out infinite alternate}
+.stage-directed[data-scene-mood=quiet] .stage-light{animation:none;opacity:.2;background:linear-gradient(120deg,#668b9f15,transparent 70%)}
+.stage-directed[data-scene-mood=warm] .stage-light{background:radial-gradient(ellipse at 68% 34%,#ffe0a324,transparent 58%)}
+.stage-cast{position:absolute;inset:0;pointer-events:none}
+.stage-person{position:absolute;bottom:2%;left:18%;width:24%;height:64%;transform-origin:50% 95%;pointer-events:none;filter:drop-shadow(0 8px 6px #061a24a0);opacity:.95}
+.stage-person.is-right{left:auto;right:16%}
+.stage-person[hidden]{display:none}
+.stage-person-image{height:100%;width:100%;object-fit:contain;object-position:bottom;animation:scene-breathe 6s ease-in-out infinite alternate;transform-origin:50% 98%}
+.stage-person.is-right .stage-person-image{animation-delay:-2s}
+.stage-person.is-entering{animation:scene-enter .65s ease-out both}
+.stage-directed[data-scene-mood=quiet] .stage-person-image{animation:none;filter:saturate(.72) brightness(.82)}
+.stage-directed[data-scene-mood=quiet] .stage-person{animation:none}
+.stage-rain{display:none;position:absolute;inset:0;background:repeating-linear-gradient(102deg,transparent 0 39px,#c6e4ef18 40px 41px,transparent 42px 83px);background-size:83px 120px;animation:scene-rain 2.6s linear infinite;clip-path:polygon(48% 0,67% 0,67% 36%,48% 36%);opacity:.36}
+.stage-london .stage-rain{display:block}
+.stage-object-focus{position:absolute;width:76px;height:76px;transform:translate(-50%,-50%);border:1px solid #ffe6b5;border-radius:50%;opacity:0;box-shadow:0 0 24px #f1d19842}
+.stage-object-active .stage-object-focus{animation:scene-focus .85s ease-out forwards}
+.stage-directed #spots{position:absolute;inset:0;z-index:5;pointer-events:none}
+.stage-directed .spot{pointer-events:auto;font-size:0!important;width:44px;min-width:44px;max-width:44px;height:44px;min-height:44px;padding:0;border-radius:50%;border:1px solid #edd4a1b0;background:#10282bdd;box-shadow:0 2px 14px #0007;overflow:visible;line-height:1}
+.stage-directed .spot:before{content:attr(data-index);display:grid;place-items:center;margin:0;width:100%;height:100%;font:14px/1 system-ui;color:#fff0cc}
+.stage-directed .spot.done:before{content:'✓';font-size:17px;color:#d5efce}
+.stage-directed .spot.unavailable{background:#162e32de;border-style:dashed;opacity:.8}
+.stage-directed .spot:hover,.stage-directed .spot:focus-visible{z-index:7;background:#315051;border-color:#ffe5b7}
+.stage-directed .spot:after{content:attr(data-marker-label);position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);color:#fff3db;font:13px/1.6 system-ui,-apple-system,"Noto Sans Arabic","Noto Sans Devanagari",sans-serif;background:#102a2ef5;border:1px solid #d9bb7ea0;border-radius:5px;padding:7px 11px;box-shadow:0 5px 14px #061a2455;white-space:normal;width:max-content;max-width:190px;opacity:0;visibility:hidden;pointer-events:none;text-align:start}
+.stage-directed .spot:hover:after,.stage-directed .spot:focus:after,.stage-show-labels .spot:after{opacity:1;visibility:visible}
+.stage-directed .spot.label-right:after{left:0;transform:none}
+.stage-directed .spot.label-left:after{left:auto;right:0;transform:none}
+.stage-directed #place{z-index:4}
+.stage-directed #scene-caption,.stage-directed .stage-caption{z-index:4;pointer-events:none;background:#102a2ac9;padding:3px 9px;border-radius:4px;max-width:75%;inset-inline-start:12%;bottom:10px;text-shadow:none}
+.stage-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;padding:0 2px;color:var(--muted);font-size:12px}
+.stage-explore-note{margin:0}
+.stage-settings{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
+.stage-settings button{font-size:11px;min-height:38px;padding:6px 11px;background:transparent}
+.stage-settings button[aria-pressed=true]{border-color:#d5bc8390;background:#dbc28c0d;color:#e9d4a8}
+.stage-settings button:disabled{opacity:.75;cursor:default}
+html.scene-motion-off .stage-directed *,html.scene-motion-off .stage-directed *:before,html.scene-motion-off .stage-directed *:after{animation:none!important;transition:none!important}
+html.scene-motion-off .stage-previous,html.scene-motion-off .stage-object-focus{opacity:0!important}
+@keyframes scene-enter{from{opacity:0}to{opacity:.95}}
+@keyframes scene-breathe{from{transform:translateY(0) scaleY(1)}to{transform:translateY(-.8px) scaleY(1.002)}}
+@keyframes scene-light{from{opacity:.4}to{opacity:.7}}
+@keyframes scene-rain{from{background-position:0 0}to{background-position:-10px 120px}}
+@keyframes scene-focus{0%{opacity:.65;scale:.7}100%{opacity:0;scale:1.3}}
+@keyframes scene-dissolve{from{opacity:1}to{opacity:0}}
+@media(max-width:760px){
+ .stage-person{height:36%;width:29%;left:-5%;bottom:2%}
+ .stage-person.is-right{right:-5%;left:auto}
+ .stage-toolbar{align-items:flex-start;flex-direction:column;gap:7px}
+ .stage-settings{width:100%;justify-content:flex-end}
+ .stage-settings button{min-height:44px;font-size:11px}
+ .stage-explore-note{font-size:11px}
+ .stage-directed .spot:after{max-width:150px;font-size:11px}
+ .stage-directed .spot.label-left:after{right:-4px}
+ .stage-directed .spot.label-right:after{left:-4px}
+ .stage-directed #scene-caption,.stage-directed .stage-caption{font-size:9px;max-width:74%;bottom:7px}
+ .stage-rain{display:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .stage-directed *,.stage-directed *:before,.stage-directed *:after{animation:none!important;transition:none!important}
+ .stage-previous,.stage-object-focus{opacity:0!important}
+}
