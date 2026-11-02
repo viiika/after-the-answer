@@ -6,6 +6,8 @@ An original science-fiction narrative game about choice, understanding, and the 
 
 ## Play
 
+**[Play online](https://viiika.github.io/after-the-answer/)** — no download required.
+
 1. Clone or download this repository.
 2. Open `start.html` in a recent Chrome, Edge, or Firefox.
 3. If the browser restricts local files, run `Start-local-server.command` on macOS, or run:
