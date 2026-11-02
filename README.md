@@ -16,6 +16,12 @@ Then open <http://127.0.0.1:56607/v75/start.html?lang=en>.
 
 English is the default public presentation. The game also includes Simplified Chinese, Arabic, Hindi, and Japanese. Arabic uses right-to-left layout. Translations other than the Chinese controlling text remain working drafts awaiting native-speaker review.
 
+## macOS App
+
+The [v0.7.5 Preview release](https://github.com/viiika/after-the-answer/releases/tag/v0.7.5-preview.1) provides a Universal macOS DMG for Apple Silicon and Intel Macs running macOS 11 or later.
+
+This preview is ad-hoc signed but not Apple-notarized. macOS may show an unidentified-developer warning on first launch. In Finder, Control-click the app and choose **Open** if you trust this project and want to proceed.
+
 ## Novella
 
 - [Complete English working translation](novel/After-the-Answer.en.md)
