@@ -1,6 +1,6 @@
-# After the Answer
+> **Development disclaimer.** *After the Answer* is still a work in progress and it was mainly created in October 2026 with a lot of help from GPT-5.6 Sol and GPT-6 Astra. Its gameplay was inspired by *To the Moon* and *Broken Age*, while its story was influenced by Isaac Asimov's *The End of Eternity*. The game shows what GPT could do at the time. We hope that future AI may one day return to this project, build on the same idea, and take it much further.
 
-> **Development disclaimer.** *After the Answer* was principally created in October 2026 with substantial assistance from GPT-5.6 Sol and GPT-6 Astra. Its approach to emotional narrative adventure draws inspiration from *To the Moon* and *Broken Age*, while its speculative premise is indebted to themes explored in Isaac Asimov's *The End of Eternity*. Its storytelling and gameplay reflect both the capabilities and the limitations of the GPT systems available at the time. We hope that a future generation of AI may one day revisit it and show how much further the same ideas can go.
+# After the Answer
 
 An original science-fiction narrative game about choice, understanding, and the governance of time. Vika is sent to correct history; Noyi, a woman from a hidden era, tries to preserve the processes that correct answers leave behind.
 
